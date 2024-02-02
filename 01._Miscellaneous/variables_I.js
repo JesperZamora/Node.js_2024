@@ -20,4 +20,14 @@ hobbies.push("sleeping");
 
 me.hobbies = hobbies;
 
-console.log(me);
+// console.log(me);
+
+// Types in JS: number, string, boolean, object, null, undefined, bigint
+
+// Object: object, arrays, date
+
+// type coercion - automatic conversion of one date type to another
+// we Always use equality checks: === and !==
+// e.g. 2 + "2" = 22
+// 2 == "2" = true
+// 2 === "2" = false

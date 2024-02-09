@@ -1,0 +1,12 @@
+Examples: maven, gradle, ant, npm, cargo
+
+conceptual build tools are the same
+
+Java                          Node.js
+maven                         npm, yarn
+pom.xml                       package.json
+
+
+meta (version, artifact)      meta
+dependencies                  dependencies
+life cyles                    scripts

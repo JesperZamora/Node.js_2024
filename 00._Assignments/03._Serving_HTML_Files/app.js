@@ -5,12 +5,14 @@ app.use(express.json());
 
 const port = 8080;
 
+let idCount = 0;
+
 const drinks = [
-  { "id": 1, "name": "Green Tea", "brand": "Organic Leaf", "price": 2.99 },
-  { "id": 2, "name": "Espresso", "brand": "Arabica Supreme", "price": 3.49 },
-  { "id": 3, "name": "Mango Smoothie", "brand": "Tropical Blends", "price": 4.25 },
-  { "id": 4, "name": "Iced Coffee", "brand": "Cool Beans", "price": 3.99 },
-  { "id": 5, "name": "Chai Latte", "brand": "Spice Haven", "price": 4.75 }
+  { "id": uniqueId(), "name": "Green Tea", "brand": "Organic Leaf", "price": 2.99 },
+  { "id": uniqueId(), "name": "Espresso", "brand": "Arabica Supreme", "price": 3.49 },
+  { "id": uniqueId(), "name": "Mango Smoothie", "brand": "Tropical Blends", "price": 4.25 },
+  { "id": uniqueId(), "name": "Iced Coffee", "brand": "Cool Beans", "price": 3.99 },
+  { "id": uniqueId(), "name": "Chai Latte", "brand": "Spice Haven", "price": 4.75 }
 ];
 
 
@@ -114,14 +116,14 @@ app.put("/drinks/:id", (req, res) => {
 });
 
 
-// DELETE
+// DELETE /drinks/id:
 app.delete("/drinks/:id", (req, res) => {
   const drinkId = +req.params?.id;
   if(isNaN(drinkId)) return res.status(400).send({ data: "Id not a number." });
 
   const drinkIndex = drinks.findIndex((drink) => drink.id === drinkId);
 
-  if(drinkId === -1 || drinkId > drinks.length) {
+  if(drinkIndex === -1) {
     return res.status(409).send({ data: "Not found" });
   }
 
@@ -144,16 +146,10 @@ function isEmpty(obj) {
 }
 
 
-// Keeps track of the count for the unique Id for each added element.
-// Because im using the length of the drinks array as a way to give the objects
-// a unique identifier. I need a count to keep track of id or else it will mess up
-// the drink ids when you delete a drink.
-const staticCount = drinks.length;
-let dynamicCount = staticCount;
-
+// Creates a new id and adds it to idCount, to keep track.
 function uniqueId() {
-  const generatedId = dynamicCount + 1;
-  dynamicCount += 1;
+  const generatedId = idCount + 1;
+  idCount += 1;
   return generatedId;
 }
 

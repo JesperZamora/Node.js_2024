@@ -16,6 +16,7 @@ const drinks = [
 ];
 
 
+
 // GET /drinks
 app.get("/drinks", (req, res) => {
   if(drinks.length === 0) {
@@ -43,8 +44,8 @@ app.get("/drinks/:id", (req, res) => {
 // TODO: 
 // check if there is any payload or missing any values.
 // check if the brand exist. If true then check the drink name.
-// ff the drink name exists, don't add the drink. Respond with "drink already exist".
-// else add the drink with a uniqueId.
+// if the drink name exists, don't add the drink. Respond with "drink already exist".
+// else add the drink with a uniqueId (a brand can have multiple drinks);
 // else if the brand doesn't exist create the drink immidiately.
 // TODO: add function to make and keep track of the unique ids.
 
@@ -145,13 +146,14 @@ function isEmpty(obj) {
   return result;
 }
 
-
 // Creates a new id and adds it to idCount, to keep track.
 function uniqueId() {
   const generatedId = idCount + 1;
   idCount += 1;
   return generatedId;
 }
+
+
 
 app.listen(port, (error) => {
   if(error) {

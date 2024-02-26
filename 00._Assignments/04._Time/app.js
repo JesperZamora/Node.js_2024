@@ -4,7 +4,7 @@ const PORT = 8080;
 
 const { main } = require('./OpenAi_API');
 
-app.get("/game", (req, res) => {
+app.get("/", (req, res) => {
   return res.sendFile(__dirname + "/public/quiz.html");
 });
 
@@ -21,3 +21,6 @@ app.get("/game/:answer", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log('Server is running on:', PORT)); 
+
+
+module.exports = app;

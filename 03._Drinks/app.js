@@ -46,6 +46,14 @@ app.post("/postman", (req, res) => {
   res.send(req.body);
 });
 
+app.post("/drinks", (req, res) => {
+  const newDrink = req.body;
+  newDrink.id = currentId++;
+  drinks.push(newDrink);
+  res.send({data: newDrink});
+});
+
+
 
 app.listen(8080, (error) => {
   if (error) {

@@ -3,10 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<link rel="stylesheet" href="./homepage.css">-->
+  <!--<script defer src="./homepage.js"></script>-->
+  
+<style>
+    h1 {
+      columns: red;
+    }
+  </style>
   <title>Homepage</title>
 </head>
 <body>
   <h1>Does this work!?!?!?!</h1>
 
+  <div id="celebration-box">
+    <h3> Yes it does</h3>
+  </div>
+
+  <input class="name-input" placeholder="Your name here">
+  <button id="name-btn">Get Greeting</button>
+  <h2 class="greeting-text"></h2>
+
+  <a href="/publicsquare"> Public Square</a>
+
+  <script>
+    // task make a request /greeting and console log the greeting
+    const nameInput = document.querySelector('.name-input');
+    const nameBtn = document.querySelector('#name-btn');
+    const greetingsText = document.querySelector('.greeting-text');
+    
+    nameBtn.addEventListener('click', setName);
+
+    function setName() {
+      const name = nameInput.value;
+      
+      fetch(`/greetings/${name}`)
+      .then((response) => response.json())
+      .then((result) => greetingsText.textContent = result.data);
+    }  
+  </script>
 </body>
 </html>

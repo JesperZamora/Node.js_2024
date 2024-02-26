@@ -103,6 +103,8 @@ app.put("/drinks/:id", (req, res) => {
 
   }
 
+  //const updatedDrink2 = drinks[drinkIndex] = { ...drinks[drinkIndex], ...requestBody, id: drinkId };
+  
   const updatedDrink = {
     ...drinkFound,
     name: requestBody.name,

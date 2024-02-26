@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100vh;
+      padding: 0 5%;
+      background-color: #f6f3f3;
+    } 
+
+    .left-container, .right-container {
+      display: flex;
+      background-color: #F9F9F9;
+      width: 250px;
+      height: 440px;
+      border-radius: 10px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .second-container {
+      padding: 20px;
+      width: 500px;
+    }
+
+    .middle-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    .middle-container h2 {
+      display: inline;
+      font-size: 30px;
+    }
+
+    .display-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+    }
+
+    .display-container textarea {
+      resize: none;
+      border-radius: 10px;
+      border: none;
+      padding: 5%;
+      width: 100%;
+      height: 320px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      background-color: #F9F9F9;
+    }
+
+    .btn {
+      padding: 10px 50px;
+      background-color: rgb(173, 216, 230);
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #FFF;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: rgb(135, 206, 235);
+    }
+
+    .btn:active {
+      background-color: rgb(135, 206, 235, 0.5);
+    }
+
+
+    .btn-begin {
+      background-color: rgb(144, 238, 144);
+    }
+
+    .btn-begin:hover {
+      background-color: rgb(105, 203, 105);
+    }
+
+    .btn-begin:active {
+      background-color: rgb(105, 203, 105, 0.5);
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 5px;
+    }
+
+    #timer {
+      font-size: 28px;
+      padding: 5%;
+      width: 100%;
+    }
+
+    .category {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 5px;
+      padding: 10px;
+    }
+
+    .btn-category {
+      background-color: rgb(255, 160, 122);
+      width: 100%;
+    }
+
+    .btn-category:hover {
+      background-color: rgb(239, 140, 101);
+    }
+
+    .btn-category:active {
+      background-color: rgb(239, 140, 101, 0.5);
+    }
+  </style>
+  <title>Game</title>
+</head>
+<body>
+  <div class="main-container">
+    <div class="left-container">
+      <h2>Score Count</h2>
+      <p>Not working yet</p>
+    </div>
+
+    <div class="second-container">
+      <div class="middle-container">
+        <h2>MY TIME QUIZ ⏳🤔</h2> <input class="btn btn-begin" id="btnBegin" type="button" value="Begin">
+      </div>
+      
+      <div class="display-container">
+        <textarea id="answerOutput" disabled></textarea>
+      </div>
+      <div class="btn-group">
+        <input class="btn btn-input" type="button" value="A" disabled="true">
+        <input class="btn btn-input" type="button" value="B" disabled="true">
+        <input class="btn btn-input" type="button" value="C" disabled="true">
+        <input class="btn btn-input" type="button" value="D" disabled="true">
+      </div>
+    </div>
+
+    <div class="right-container">
+      <h2>Timer (2 min)</h2>
+      <div class="timer-container">
+        <div id="timer">00:00</div>
+      </div>
+      <div class="category">
+        <h2>Category</h2>
+        <input class="btn btn-category" type="button" value="Animals"/>
+        <input class="btn btn-category" type="button" value="Games"/>
+        <input class="btn btn-category" type="button" value="Fashion"/>
+        <input class="btn btn-category" type="button" value="World"/>
+        <input class="btn btn-category" type="button" value="Programming"/>
+      </div>
+    </div>
+  </div>
+
+ 
+ <script>
+    const answerOutput = document.getElementById('answerOutput');
+    const btnBegin = document.getElementById('btnBegin');
+    const btnInput = document.querySelectorAll('.btn');
+    
+    answerOutput.textContent = 'Please press the "Begin" button to start the game. Good luck!'
+    
+
+    btnBegin.addEventListener('click', () => {
+      startTimer();
+      btnInput.forEach((btn) => {
+        btn.disabled = false;
+      });
+    });
+
+    btnInput.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const value = e.target.value;
+        userChoiceHandler(value);
+      });
+    });
+
+    function userChoiceHandler(input) {
+      fetch(`/game/${input}`)
+      .then((response) => response.json())
+      .then((result) => answerOutput.textContent = result.data);
+    }
+
+
+    function startTimer() {
+      let time = 120;
+      let timer = document.getElementById('timer');
+      timer.textContent = formatTime(time);
+
+      let interval = setInterval(() => {
+        time -= 1;
+        timer.textContent = formatTime(time);
+
+        if (time <= 0) {
+          clearInterval(interval);
+          timer.textContent = "Time's up!";
+          userChoiceHandler("stop");
+        }
+      }, 1000);
+    }
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainderSeconds = seconds % 60;
+      return `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+    }
+  </script>
+</body>
+</html>

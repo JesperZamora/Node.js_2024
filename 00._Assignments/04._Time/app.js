@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 
-const { main } = require('./OpenAi_API');
+const { main } = require('./OpenAI_API');
 
 app.get("/", (req, res) => {
   return res.sendFile(__dirname + "/public/quiz.html");

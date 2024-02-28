@@ -8,12 +8,11 @@ app.get("/", (req, res) => {
   return res.sendFile(__dirname + "/public/quiz.html");
 });
 
-app.get("/game/:answer", async (req, res) => {
-  const answerInput = req.params.answer;
+app.get("/game/:choice", async (req, res) => {
+  const input = req.params.choice;
   try {
-    const completion = await main(answerInput);
+    const completion = await main(input);
     const question = completion.choices[0].message.content;
-    
     return res.status(200).send({ data: question });
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });

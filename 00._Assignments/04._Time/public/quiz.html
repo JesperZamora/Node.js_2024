@@ -24,8 +24,8 @@
       display: flex;
       background-color: #F9F9F9;
       width: 250px;
-      height: 440px;
-      border-radius: 10px;
+      height: 480px;
+      border: solid 1px #d3d3d3;
       flex-direction: column;
       align-items: center;
     }
@@ -37,7 +37,7 @@
 
     .middle-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       padding: 5px 10px;
       text-align: center;
@@ -45,14 +45,14 @@
 
     .middle-container h2 {
       display: inline;
-      font-size: 30px;
+      font-size: 32px;
     }
 
     .display-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 5px;
+      border: solid 1px #d3d3d3;
     }
 
     .display-container textarea {
@@ -71,11 +71,11 @@
       padding: 10px 50px;
       background-color: rgb(173, 216, 230);
       border: none;
-      border-radius: 5px;
       font-size: 16px;
       font-weight: bold;
       color: #FFF;
       transition: background-color 0.3s;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -89,6 +89,7 @@
 
     .btn-begin {
       background-color: rgb(144, 238, 144);
+      width: 100%;
     }
 
     .btn-begin:hover {
@@ -131,37 +132,130 @@
     .btn-category:active {
       background-color: rgb(239, 140, 101, 0.5);
     }
+
+    .btn-modal-open {
+      border: solid 2px black;
+      background-color: #FFF;
+      padding: 4px 8px;
+      font-weight: bolder;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .btn-modal-close {
+      padding: 5px 20px;
+      border: none;
+      background-color: rgb(173, 216, 230);
+      color: #FFF;
+      align-self: flex-end;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-modal-close:hover {
+      background-color: rgb(135, 206, 235);
+    }
+
+    .btn-modal-close:active {
+      background-color: rgb(135, 206, 235, 0.5);
+    }
+
+    .modal-close-container {
+      display: flex;
+      justify-content: end;
+      width: 100%;
+    }
+
+    .modal {
+      background-color: #fdf9f9;
+      border: solid 1px #7e7c7c;
+      max-width: 600px;
+    }
+    
+    .modal::backdrop {
+      background-color: #000000;
+      opacity: 0.4;
+    }
+
+    .modal-text-container {
+      display: flex;
+      flex-direction: column;
+      padding: 5px 20px;
+    }
+
+    .modal-text-container h2 {
+      font-size: 36px;
+      margin: 5px;
+    }
+    .modal-text-container p {
+      line-height: 25px;
+      text-align: left;
+    }
+
+    .modal-play, .modal-assignment {
+      text-align: left;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 2px;
+      font-size: 18px;
+    }
+
   </style>
   <title>Game</title>
 </head>
 <body>
   <div class="main-container">
     <div class="left-container">
-      <h2>Score Count</h2>
+      <h2>High Score</h2>
       <p>Not working yet</p>
+      <p>Fix timer</p>
+      <p>Reset array in backend</p>
+      <p>Display scores</p>
     </div>
 
     <div class="second-container">
       <div class="middle-container">
-        <h2>MY TIME QUIZ ⏳🤔</h2> <input class="btn btn-begin" id="btnBegin" type="button" value="Begin">
+        <h2>DATE YEAR QUIZ ⏳🤔</h2>
+        <input class="btn-modal-open" id="btn-modal-open" type="button" value="?"/>
+        <dialog class="modal" id="modal">
+          <div class="modal-text-container">
+            <h2>Time to deploy!</h2>
+            <p>
+              <span class="modal-play">How to play</span>
+              This is a date and year quiz game. To the right, you can see a countdown timer that will start when you click 'Press Begin', giving you 2 minutes to answer as many questions as possible. You have the option to either choose a category or simply press begin. If you select a category beforehand, the quiz will focus on questions related to that subject. However, if you start without choosing a category, you'll be presented with questions from various random subjects. Once the timer runs out, your score will be displayed
+            </p>
+            
+            <p>
+              <span class="modal-assignment">Assignment</span>
+              "Create an HTML website served with Express focusing on time." <br/>
+              This assignment was given by our lecturer (AL) during the 4th semester of 2024 at KEA Copenhagen. The main objective was to learn about the Express framework and API design. Although deployment using Vercel was not a learning goal, we were encouraged to explore it. Generating the quiz question is done through Chat-GPT-4 API.
+            </p>
+          </div>
+          <div class="modal-close-container">
+            <input class="btn-modal-close" id="btn-modal-close" type="button" value="Close">
+          </div>
+        </dialog>
       </div>
       
       <div class="display-container">
         <textarea id="answerOutput" disabled></textarea>
       </div>
+
       <div class="btn-group">
-        <input class="btn btn-input" type="button" value="A" disabled="true">
-        <input class="btn btn-input" type="button" value="B" disabled="true">
-        <input class="btn btn-input" type="button" value="C" disabled="true">
-        <input class="btn btn-input" type="button" value="D" disabled="true">
+        <input class="btn" type="button" value="A" disabled="true">
+        <input class="btn" type="button" value="B" disabled="true">
+        <input class="btn" type="button" value="C" disabled="true">
+        <input class="btn" type="button" value="D" disabled="true">
       </div>
     </div>
 
     <div class="right-container">
       <h2>Timer (2 min)</h2>
+
       <div class="timer-container">
         <div id="timer">00:00</div>
       </div>
+
       <div class="category">
         <h2>Category</h2>
         <input class="btn btn-category" type="button" value="Animals"/>
@@ -169,6 +263,7 @@
         <input class="btn btn-category" type="button" value="Fashion"/>
         <input class="btn btn-category" type="button" value="World"/>
         <input class="btn btn-category" type="button" value="Programming"/>
+        <input class="btn btn-begin" id="btnBegin" type="button" value="Press Begin">
       </div>
     </div>
   </div>
@@ -178,11 +273,27 @@
     const answerOutput = document.getElementById('answerOutput');
     const btnBegin = document.getElementById('btnBegin');
     const btnInput = document.querySelectorAll('.btn');
+    const btnCategoryAndBegin = document.querySelectorAll(['.btn-category', '.btn-begin']);
+    const modal = document.getElementById('modal');
+    const btnModalOpen = document.getElementById('btn-modal-open');
+    const btnModalClose = document.getElementById('btn-modal-close');
     
     answerOutput.textContent = 'Please press the "Begin" button to start the game. Good luck!'
     
+    let interval;
+
+    btnModalOpen.addEventListener('click', () => {
+      modal.showModal();
+    });
+
+    btnModalClose.addEventListener('click', () => {
+      modal.close();
+    });
 
     btnBegin.addEventListener('click', () => {
+      if(interval) {
+        clearInterval(interval);
+      }
       startTimer();
       btnInput.forEach((btn) => {
         btn.disabled = false;
@@ -196,26 +307,40 @@
       });
     });
 
+    function buttonDisabler() {
+      btnInput.forEach((btn) => {
+        btn.disabled = true;
+      });
+
+      btnCategoryAndBegin.forEach((btn) => {
+        btn.disabled = false;
+      });
+    }
+
     function userChoiceHandler(input) {
       fetch(`/game/${input}`)
       .then((response) => response.json())
       .then((result) => answerOutput.textContent = result.data);
     }
 
-
     function startTimer() {
       let time = 120;
       let timer = document.getElementById('timer');
       timer.textContent = formatTime(time);
 
-      let interval = setInterval(() => {
+      interval = setInterval(() => {
         time -= 1;
         timer.textContent = formatTime(time);
 
         if (time <= 0) {
+          buttonDisabler();
           clearInterval(interval);
           timer.textContent = "Time's up!";
-          userChoiceHandler("stop");
+
+          setTimeout(() => {
+            userChoiceHandler("finish");
+          }, 2000);
+          
         }
       }, 1000);
     }

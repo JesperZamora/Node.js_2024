@@ -37,6 +37,6 @@ app.listen(PORT, (error) => {
   2. The front end will take the score and time and send it to backend.
   3. Data should be persisted to an array.
   4. Send the array of objects back and display them in 'Score Board'.
-  5. Look into how to optimize the speed of quiz question generation. Maybe look into how the API streams works with Chat-GPT, see if can get quiz questions in a continuously stream instead?
+  5. Look into how to optimize the speed of quiz question generation. Maybe look into asyncronous queueing or webhooks, see if it can get quiz questions in a continuously stream instead?
   6. Fix the answer buttons, so they are disabled once they are clicked and enabled when the next question is displayed.
 */

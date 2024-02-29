@@ -2,35 +2,15 @@ const OpenAI = require('openai');
 const OPEN_API_KEY = process.env.MY_KEY
 const openai = new OpenAI({ apiKey: OPEN_API_KEY });
 
-const display = `Your answer is: ? 
+const systemContent = 'You will make a quiz that revolves around the subjects date and year. You will generate 10 simple questions, with four possible solutions where only one i correct. The answers should be labeled A, B, C, D. I want the message back in an array and each questions and the four answers related to the question, should be in and object. Like [{question: "", A: "", B: "", C: "", D: "", correctAnswer: "", correctChoice: "", explanation: "" }]. The "correctAnswer" value, should be the value of either answer A, B, C or D. So if an answer has a date and year this should be the value of "correctAnswer. The correctChoice should be key of the correctAnswer. The user will give you one of five categories: Fashion, Animals, Programming, World, Games. When you recieve a category you generet the questions in regards to data and year subject and the category';
 
-Correct! The ....
-
-Here is your next question:
-
-Question 3: .......?
-
-A) xxxx
-B) xxxx
-C) xxxx
-D) xxxx
-
-Select the correct answer by pressing button A, B, C, or D.`
-
-const systemContent = 'You are a quiz master and pretend this is like the game "Who Wants to Be a Millionaire?". The quiz main subject revolves around date and year. You will generate a short question with four possible answers with date, month, year. The answers should me listed letter A, B, C, D. Radomize the correct answer with a new letter each time. When you have recieved a users answer you will respond with wether the answer is correct or not and then display the new question. Each question should be numbered with Question: 1, Question: 2 etc. You will first start the quiz when you receive word "Begin" from the user. If you get receive the subjects "animals", "games", "fashion", "world" or "programming", then switch the subject to that it should still revolve around the main subject. If you recieve the word "finish" return the score of correct answers. This is an example of how you should display it'.concat(display);
-
-const system = "system";
-const user = "user";
-const assistant = "assistant";
-
-let gameMessages = [{ role: system, content: systemContent }];
-
-async function main(userChoice) {  
+let content = [{ role: "system", content: systemContent }];
+ 
+async function main(subject) {
   try {
-    gameMessages.push({ role: user, content: userChoice });
-    
+    content.push({ role: "user", content: subject });
     const completion = await openai.chat.completions.create({
-      messages: gameMessages,
+      messages: content,
       model: "gpt-4",
       /*temperature: 1,
       max_tokens: 256,
@@ -38,25 +18,15 @@ async function main(userChoice) {
       frequency_penalty: 0,
       presence_penalty: 0,*/
     });
+    console.log(completion);
+    
+    const completionResponse = completion.choices[0].message.content;
+    return completionResponse;
 
-    if(userChoice === 'finish') {
-      resetGameMessages();
-      return completion;
-    }
-    const resContent = completion.choices[0].message.content;
-    gameMessages.push({ role: assistant, content: resContent });
-    return completion;
-  } catch (error) {
-    console.error("Error:", error);
+  } catch(error) {
+    console.error("Error", error);
     throw error;
   }
-  
 }
-
-function resetGameMessages() {
-  gameMessages = [];
-  gameMessages = [{ role: system, content: systemContent }];
-}
-
 
 module.exports = { main };

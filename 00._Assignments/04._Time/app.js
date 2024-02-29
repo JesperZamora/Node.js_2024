@@ -32,6 +32,8 @@ app.listen(PORT, (error) => {
   console.log("Server is running on", PORT);
 });
 
+
+
 /*TODO for the weekend (if there is time for it)
   1. Make post endpoint that takes and object with the keys; time, score. Or use params.
   2. The front end will take the score and time and send it to backend.

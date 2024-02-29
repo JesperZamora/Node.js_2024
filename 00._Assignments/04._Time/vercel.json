@@ -13,8 +13,8 @@
      }
   ],
   "functions": {
-     "app.js": {
-       "maxDuration": 10
-     }
+    "app.js": {
+      "maxDuration": 10
+    }
   }
  } 

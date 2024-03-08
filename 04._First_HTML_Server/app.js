@@ -49,8 +49,24 @@ app.get("/proxy", (req, res) => {
     const text = decoder.decode(buffer);
     res.send(text);
   });*/
-})
+});
 
+//Server site redirection
+
+app.get("/treasuretrove", (req, res) => {
+  res.status(200).send({ data: "You fount it!"});
+});
+
+//query: if you want to share links with other seach machines
+app.get("/secretpassphrase", (req, res) => {
+  // task: get the passphrase from the query string compare it below
+  const passPhrase = req.query.phrase;
+  if(passPhrase !== "SesameOpenUp") {
+    res.status(400).send({ data: "Wrong passphrase"});
+  } else {
+    res.redirect("/treasuretrove");
+  }
+});
 
 const PORT = 8080;
 app.listen(PORT, () => console.log("Server is running on port", PORT));

@@ -27,6 +27,15 @@
   <a href="/publicsquare"> Public Square</a>
 
   <script>
+    //assignment redirect dynamically to / publicsqaure after 3 seconds on the page
+    // browser has a window object. It has a lot of methods that we have access to through the browser, but not in node. 
+    // Using window href will push the website. Client site redirect to publicsquare but gets the files from the server
+    setTimeout(() => window.location.href = "/publicsquare", 3000);
+    //Using replace will effect the history
+    //setTimeout(() => window.location.replace("/publicsquare"), 3000);
+  </script>
+
+  <script>
     // task make a request /greeting and console log the greeting
     const nameInput = document.querySelector('.name-input');
     const nameBtn = document.querySelector('#name-btn');

@@ -3,6 +3,14 @@ const app = express();
 
 app.use(express.json());
 
+//Serves as setting the public folder as accessible for the client if they have css/files
+app.use(express.static("public"));
+
+//const helicopterFactoryFile = require("./util/helicopterFactory.js");
+//console.log(helicopterFactoryFile.heliccopterFactory());
+
+const { helicopterFactory } = require("./util/helicopterFactory.js");
+console.log(helicopterFactory());
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/homepage/homepage.html");
@@ -31,6 +39,17 @@ app.get("/greetings/:name", (req, res) => {
 app.get("/knownpeople", (req, res) => {
   return res.send({ data: knownNames.length });
 });
+
+
+app.get("/proxy", (req, res) => {
+  fetch("https://www.google.com")
+  .then((res) => res.text()).then((data) => res.send(data)); 
+  /*fetch("https://www.google.com").then(res => res.arrayBuffer()).then(buffer => {
+    const decoder = new TextDecoder('iso-8859-1');
+    const text = decoder.decode(buffer);
+    res.send(text);
+  });*/
+})
 
 
 const PORT = 8080;

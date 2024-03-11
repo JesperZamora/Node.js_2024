@@ -1,5 +1,5 @@
 #logo {
-  width: 10em;
+  width: 8em
 }
 
 body {
@@ -10,4 +10,16 @@ body {
 
 main {
   flex: 1;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .links a {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 20px;
 }

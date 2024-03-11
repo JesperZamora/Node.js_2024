@@ -58,6 +58,8 @@ app.get("/treasuretrove", (req, res) => {
 });
 
 //query: if you want to share links with other seach machines
+//path variables is a fixed amount of variables that needs to be followed
+//query strings are more dynamical
 app.get("/secretpassphrase", (req, res) => {
   // task: get the passphrase from the query string compare it below
   const passPhrase = req.query.phrase;

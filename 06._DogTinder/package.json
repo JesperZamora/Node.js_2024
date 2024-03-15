@@ -5,5 +5,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1"
+  },
+  "scripts": {
+    
   }
 }

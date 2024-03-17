@@ -9,11 +9,20 @@ app.use(express.static("public"));
 //import path from "path";
 
 // remember '.js' when importing with ecma script 'module'. When using common we don't need to specify '.js'
-import getMatches from "./util/matches.js";
+//import getMatches from "./util/matches.js";
 
-import { homepagePage, matchesPage, contactPage } from "./util/readPages.js";
+import playRouter from "./routers/playRouter.js"
 
+app.use(playRouter);
+// task: Creates a matchesRouter and put the  /matches route inside of it and combine it with the server
 
+import matchesRouter from "./routers/matchesRouter.js"
+app.use(matchesRouter);
+
+import pagesRouter from "./routers/pagesRouter.js"
+app.use(pagesRouter);
+
+//import { homepagePage, matchesPage, contactPage } from "./util/readPages.js";
 
 import fs from "fs";
 
@@ -37,6 +46,7 @@ const matchesPage = header + matches + footer;
 
 //------------- HTML -------------/
 
+/*
 // Homepage
 app.get("/", (req, res) => {
   res.status(200).send(homepagePage);
@@ -53,7 +63,7 @@ app.get("/contacts", (req, res) => {
 app.get("/matches", (req, res) => {
   res.status(200).send(matchesPage);
   //res.status(200).sendFile(path.resolve("public/pages/matches/matches.html"));
-});
+});*/
 
 //Server site rendering
 // - Client site doesnt need to render and it saves resources
@@ -63,11 +73,11 @@ app.get("/matches", (req, res) => {
 // - Solves SEO problems
 
 //------------- API -------------/
-
+/*
 app.get("/api/matches", async (req, res) => {
   const matches = await getMatches();
   res.send({ data: matches });
 });
-
+*/
 const PORT = 8080;
 app.listen(PORT, () => console.log("Server is running on port", PORT));

@@ -15,8 +15,7 @@ app.get("/quiz/:subject", async (req, res) => {
     const JsonStringQuiz = await main(quizSubject);
 
     const quizArray = JSON.parse(JsonStringQuiz);
-    console.log(quizArray);
-
+    
     return res.status(200).send({ data: quizArray });
 
   } catch(error) {

@@ -2,7 +2,7 @@ import express from "express";
 
 const app = express();
 
-// client har kun afdagn til public mappen
+// client har kun adgang til public mappen
 app.use(express.static("public"));
 
 //console.log(path.resolve("public/hompage/homepage.html"));
@@ -21,6 +21,11 @@ app.use(matchesRouter);
 
 import pagesRouter from "./routers/pagesRouter.js"
 app.use(pagesRouter);
+
+// "extended" first layer of the object when it parses
+app.use(express.urlencoded( {extended: false }));
+import contactRouter from "./routers/contactRouter.js"
+app.use(contactRouter);
 
 //import { homepagePage, matchesPage, contactPage } from "./util/readPages.js";
 
@@ -66,9 +71,9 @@ app.get("/matches", (req, res) => {
 });*/
 
 //Server site rendering
-// - Client site doesnt need to render and it saves resources
-// - Server site rendering is fater rendering of website
-// - Some clients as turned of JavaScript
+// - Client site doesn't need to render and it saves resources
+// - Server site rendering is faster rendering of website
+// - Some clients has turned of JavaScript
 // - Server site rendering solves all CORS problems.
 // - Solves SEO problems
 
@@ -79,5 +84,16 @@ app.get("/api/matches", async (req, res) => {
   res.send({ data: matches });
 });
 */
-const PORT = 8080;
-app.listen(PORT, () => console.log("Server is running on port", PORT));
+
+// Hey there will print first because app.listen() is a non-block asynchronous operation.
+// const PORT = 8080;
+// app.listen(PORT, () => console.log("Server is running on port", PORT));
+// console.log("Hey there");
+
+// PORT=9090 nodemon app.js only for linux and mac
+// $env:PORT = 9090 for windows in powershell
+// you can install packages npm install --save-dev cross-env to fix the challange
+console.log(process.env.PORT);
+
+const PORT = process.env.port ?? 8080; //undifined
+const server = app.listen(PORT, () => console.log("Server is running on port", server.address().port));

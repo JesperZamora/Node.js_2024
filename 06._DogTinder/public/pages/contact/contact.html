@@ -1,5 +1,24 @@
 <h1>Contacts</h1>
-<ul>
-  <li>Mobile: +45 123 456</li>
-  <li>Email: doggy@inder.com</li>
-</ul>
+<div>
+  <ul>
+    <li>Mobile: +45 123 456</li>
+    <li>Email: doggy@inder.com</li>
+  </ul>
+</div>
+<div>
+  <div>
+    <h4>Contact form</h4>
+  </div>
+  <form action="/api/contact" method="POST">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Your name" required>
+    
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="Your@email" required>
+
+    <label for="message">Message</label>
+    <textarea name="message" id="message" style="width: 400px; height: 200px; color: darkgrey; resize: none;" >Ask me anything!</textarea>
+    
+    <button type="submit" aria-label="Submit Form">Submit</button>
+  </form> 
+</div>

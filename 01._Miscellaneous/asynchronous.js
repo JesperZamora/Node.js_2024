@@ -38,7 +38,7 @@ new Promise((resolve, reject) => {
     }
   }, 2000);
 
-})
+});
 //.then((succesMessage) => console.log(succesMessage))
 //.catch((errorMessage) => console.log(errorMessage));
 

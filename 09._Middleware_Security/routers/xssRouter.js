@@ -10,8 +10,8 @@ router.get("/messages", (req, res) => {
 });
 
 router.post("/messages", (req, res) => {
-  //messages.push(escape(req.body.message));
-  messages.push(req.body.message);
+  messages.push(escape(req.body.message));
+  //messages.push(req.body.message);
   console.log(messages);
   res.send({ data: messages });
 });

@@ -2,10 +2,11 @@ import { Router } from 'express'
 const router = Router();
 
 router.get("/definesecretmessage", (req, res) => {
-  const secretMassage = req.query.secretMassage;
-  if (secretMassage) {
-    req.session.secretMessage = secretMassage;
-    res.send({ message: `You have defined the secret message as ${secretMassage}`});
+  const secretMessage = req.query.secretMessage;
+  if (secretMessage) {
+    req.session.secretMessage = secretMessage;
+    console.log(req.sessionID);
+    res.send({ message: `You have defined the secret message as ${secretMessage}`});
   } else {
     res.send({ message: "You have not defined the query parameter 'secretMessage"});
   }

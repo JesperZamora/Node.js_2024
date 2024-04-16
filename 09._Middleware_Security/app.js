@@ -14,8 +14,8 @@ import session from "express-session";
 console.log(process.env.SESSION_SECRET);
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  resave: false,
   saveUninitialized: true,
+  resave: false,
   cookie: { secure: false }
 }))
 
@@ -74,5 +74,5 @@ app.all("*", (req, res) => {
 });
 
 
-const PORT = process.env.PORT ?? 8080;
+const PORT = process.env.PORT ?? 8181;
 app.listen(PORT, console.log("Server is running on port", PORT));
